@@ -26,7 +26,7 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            font-size: 1.1rem; /* 保持加大字體 */
+            font-size: 1.1rem;
         }
 
         /* 頂部區域與導覽列 */
@@ -63,16 +63,22 @@
             color: var(--brand-green);
         }
 
+        /* 💡 完美復刻 Modrinth 膠囊型分組導覽外框 */
         nav {
             display: flex;
-            gap: 8px;
+            gap: 4px;
+            background-color: #111216;
+            padding: 4px;
+            border-radius: 30px; /* 藥丸外框圓角 */
+            border: 1px solid var(--border-color);
         }
 
+        /* 💡 導覽標籤全面化身圓角藥丸 */
         nav a {
             color: var(--color-muted);
             text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 6px;
+            padding: 6px 18px;
+            border-radius: 20px; /* 內層選項高圓角 */
             transition: all 0.2s ease;
             font-size: 1.05rem;
             font-weight: 500;
@@ -83,8 +89,9 @@
             background-color: #24262b;
         }
 
+        /* 💡 復刻截圖中「模組」標籤的墨綠色底、亮綠字效果 */
         nav a.active {
-            background-color: #24292f;
+            background-color: #1b3524; 
             color: var(--brand-green);
             font-weight: 600;
         }
@@ -132,10 +139,10 @@
         .card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 14px; /* 稍微提升整體卡片大圓角 */
             padding: 28px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            scroll-margin-top: 80px; /* 保持保留防導覽列遮擋設定 */
+            scroll-margin-top: 80px;
         }
 
         .card h2 {
@@ -186,16 +193,16 @@
             color: var(--brand-green);
         }
 
-        /* Modrinth 綠色漸變按鈕樣式 */
+        /* 🟩 完美復刻「下載」鈕外觀的高圓角綠色按鈕 */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             background-color: var(--brand-green);
             color: #000;
-            padding: 12px 20px;
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 30px; /* 💡 更改為極致圓滑的藥丸型圓角 */
             font-size: 1rem;
             font-weight: bold;
             transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
@@ -213,14 +220,14 @@
             transform: scale(0.95);
         }
 
-        /* 客製化灰色複製按鈕樣式 */
+        /* 🪨 依照條件客製化的灰色圓角藥丸按鈕 */
         .btn-gray {
             background-color: #34363c;
             color: #aeb8c3;
-            padding: 6px 12px;
+            padding: 6px 16px;
             font-size: 0.85rem;
             margin-left: 8px;
-            border-radius: 6px;
+            border-radius: 20px; /* 💡 更改為極致圓滑的藥丸型圓角 */
             font-weight: bold;
             transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
             border: none;
@@ -237,13 +244,13 @@
             transform: scale(0.95);
         }
 
-        /* 標籤樣式 */
+        /* 💡 標籤同步換上膠囊藥丸外觀 */
         .tag {
             display: inline-block;
             background-color: #24262b;
             color: var(--color-muted);
-            padding: 4px 10px;
-            border-radius: 4px;
+            padding: 4px 12px;
+            border-radius: 20px; /* 💡 高圓角 */
             font-size: 0.85rem;
             margin-right: 8px;
             border: 1px solid var(--border-color);
@@ -253,7 +260,7 @@
         details {
             background-color: #16171a;
             padding: 14px 18px;
-            border-radius: 8px;
+            border-radius: 10px; /* 摺疊選單微調圓潤 */
             border: 1px solid var(--border-color);
             margin-top: 14px;
         }
