@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主伺服器 詳細資訊 - 官方網站</title>
+    <style>
+        /* 完美復刻 Modrinth 核心配色 */
+        :root {
+            --bg-main: #111216;       /* 全域最暗背景 */
+            --bg-card: #1c1e22;       /* 右側邊欄與分頁卡片背景 */
+            --bg-nav: #16171a;        /* 頂部導覽列背景 */
+            --color-text: #eaebee;    /* 主字體顏色 */
+            --color-muted: #a3a7af;   /* 說明小字與未選中字體顏色 */
+            --brand-green: #1bd96a;   /* 亮綠色大按鈕與選中字體 */
+            --brand-green-hover: #22ff85;
+            --border-color: #2c2e33;  /* 精緻網格線條顏色 */
+            --brand-orange: #ff9800;  /* 更新日誌時間軸經典橘色 */
+        }
+
+        body {
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+            background-color: var(--bg-main);
+            color: var(--color-text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        /* 頂部導覽列 */
+        header {
+            background-color: var(--bg-nav);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        header h1 a {
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        /* Modrinth 膠囊型分組導覽外框 */
+        nav {
+            display: flex;
+            gap: 4px;
+            background-color: #111216;
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        nav a {
+            color: var(--color-muted);
+            text-decoration: none;
+            padding: 6px 18px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+            font-size: 1.05rem;
+        }
+
+        nav a:hover {
+            color: var(--color-text);
+            background-color: #24262b;
+        }
+
+        /* ==================== 1. 頂部專案橫幅區域 ==================== */
+        .project-header {
+            background-color: #16171a;
+            border-bottom: 1px solid var(--border-color);
+            padding: 40px 0 20px 0;
+        }
+
+        .project-header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .project-meta-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        /* 左上角大圖示 */
+        .project-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 12px;
+            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=150'); /* 預設精美幾何圖替代，可改為 images/icon.png */
+            background-size: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-title-block h2 {
+            margin: 0 0 6px 0;
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        .project-subtitle {
+            color: var(--color-muted);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* 右側下載、愛心、書籤膠囊鈕組合 */
+        .project-meta-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-download {
+            background-color: var(--brand-green);
+            color: #111216;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-download:hover {
+            background-color: var(--brand-green-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-icon-only {
+            background-color: #2c2e33;
+            color: var(--color-text);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1.2rem;
+        }
+
+        .btn-icon-only:hover {
+            background-color: #41444b;
+        }
+
+        /* ==================== 2. Modrinth 經典分頁選單 ==================== */
+        .project-tabs-nav {
+            max-width: 1200px;
+            margin: 24px auto 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-muted);
+            padding: 8px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--color-text);
+            background-color: #1c1e22;
+        }
+
+        /* 啟動中的分頁標籤樣式 */
+        .tab-btn.active {
+            background-color: #1b3524;
+            color: var(--brand-green);
+        }
+
+        /* ==================== 3. 雙欄主要版面配置 ==================== */
+        .main-layout {
+            max-width: 1200px;
+            margin: 24px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 30px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 左側動態分頁內容區 */
+        .tab-content-panel {
+            min-width: 0;
+        }
+
+        .page-section {
+            display: none; /* 預設全部隱藏，靠 JS 控制切換 */
+        }
+
+        .page-section.active {
+            display: block; /* 只有當前作用中的分頁會顯示 */
+        }
+
+        /* 🎥 描述頁籤樣式 */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .description-text {
+            color: var(--color-text);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* 🖼️ 圖庫頁籤樣式 (網格佈局) */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            background-color: #111216;
+        }
+
+        .gallery-meta {
+            padding: 12px;
+            font-size: 0.95rem;
+            color: var(--color-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 📜 更新日誌頁籤樣式 (垂直時間軸) */
+        .changelog-timeline {
+            position: relative;
+            padding-left: 24px;
+            margin-left: 10px;
+            border-left: 3px solid var(--brand-orange); /* 橘色垂直時間軸線 */
+        }
+
+        .log-node {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        /* 時間軸上的圓點點 */
+        .log-node::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 6px;
+            width: 11px;
+            height: 11px;
+            background-color: var(--brand-orange);
+            border-radius: 50%;
+            border: 3px solid var(--bg-main);
+        }
+
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .log-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+            color: #fff;
+        }
+
+        .log-date {
+            font-size: 0.95rem;
+            color: var(--color-muted);
+            background-color: #24262b;
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+
+        .log-body {
+            background-color: #16171a;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .log-body ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--color-muted);
+        }
+
+        .log-body li {
+            margin-bottom: 8px;
+        }
+
+        /* ==================== 4. 右側固定邊欄 (Sidebar) ==================== */
+        .sidebar-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .sidebar-card h3 {
+            margin: 0 0 14px 0;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        /* 相容性膠囊小標籤 */
+        .tag-pill {
+            display: inline-block;
+            background-color: #2c2e33;
+            color: var(--color-muted);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 4px;
+            font-weight: 500;
+        }
+        .tag-pill.highlight-version {
+            background-color: #24262b;
+            color: #fff;
+            border: 1px solid #41444b;
+        }
+
+        .notice-box {
+            background-color: #241a1a;
+            border: 1px solid #522626;
+            border-radius: 8px;
+            padding: 12px;
+            color: #ffb4b4;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1><a href="index.html" style="color: inherit; text-decoration: none; font-weight:700;">伺服器公告</a></h1>
+            <nav>
+                <a href="index.html">首頁</a>
+                <a href="menu.html">伺服器</a>
+                <a href="news.html">遊戲新聞</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="project-header">
+        <div class="project-header-container">
+            <div class="project-meta-left">
+                <div class="project-icon"></div>
+                <div class="project-title-block">
+                    <h2>主伺服器</h2>
+                    <p class="project-subtitle">託管於 Aternos 平台的官方主伺服器，旨在同樂。</p>
+                </div>
+            </div>
+            <div class="project-meta-right">
+                <button class="btn-download" onclick="navigator.clipboard.writeText('solomon10129MCJ.aternos.me:16226'); alert('IP已成功複製到剪貼簿！');">
+                    📥 複製伺服器 IP
+                </button>
+                <button class="btn-icon-only" title="加入最愛">❤️</button>
+                <button class="btn-icon-only" title="收藏專案">🔖</button>
+            </div>
+        </div>
+
+        <div class="project-tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('description')">描述</button>
+            <button class="tab-btn" onclick="switchTab('gallery')">圖庫</button>
+            <button class="tab-btn" onclick="switchTab('changelog')">更新日誌</button>
+        </div>
+    </div>
+
+    <div class="main-layout">
+        
+        <div class="tab-content-panel">
+            
+            <div id="tab-description" class="page-section active">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/ZiaSg6XpD3M" title="Minecraft Cinematic Video" allowfullscreen></iframe>
+                </div>
+                <div class="description-text">
+                    <h3>關於主伺服器</h3>
+                    <p>歡迎來到官方主伺服器！本伺服器致力於提供穩定、純粹且充滿樂趣的生存環境。在這裡，你可以與好友們一起探索世界、建造宏偉的建築、開闢繁華的鐵路交通網絡，並參與定期舉辦的社群活動。</p>
+                    <p>伺服器內建了多項效能優化模組與基礎同樂機制，在確保流暢遊戲體驗的同時，最大程度保留了麥塊最原始的生存魅力。快複製上方的 IP，加入我們的行列吧！</p>
+                </div>
+            </div>
+
+            <div id="tab-gallery" class="page-section">
+                <div class="gallery-grid">
+                    <div class="gallery-card">
+                        <img src="https://images.unsplash.com/photo-1607988795691-3d0147b43231?q=80&w=500" class="gallery-img" alt="遊戲截圖 1">
+                        <div class="gallery-meta">📅 2026年6月15日 ｜ 大樓遠景</div>
+                    </div>
+                    <div class="gallery-card">
+                        <img src="https://images.unsplash.com/photo-1605899435973-ca2d1a8861cf?q=80&w=500" class="gallery-img" alt="遊戲截圖 2">
+                        <div class="gallery-meta">📅 2026年6月15日 ｜ 櫻花林道</div>
+                    </div>
+                    <div class="gallery-card">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=500" class="gallery-img" alt="遊戲截圖 3">
+                        <div class="gallery-meta">📅 2026年6月15日 ｜ 空島基地</div>
+                    </div>
+                    <div class="gallery-card">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500" class="gallery-img" alt="遊戲截圖 4">
+                        <div class="gallery-meta">📅 2026年6月15日 ｜ 生日快樂</div>
+                    </div>
+                    <div class="gallery-card">
+                        <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?q=80&w=500" class="gallery-img" alt="遊戲截圖 5">
+                        <div class="gallery-meta">📅 2026年6月15日 ｜ 深邃地底</div>
+                    </div>
+                    <div class="gallery-card">
+                        <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?q=80&w=500" class="gallery-img" alt="遊戲截圖 6">
+                        <div class="gallery-meta">📅 2026年6月15日 ｜ 空中軌道</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-changelog" class="page-section">
+                <div class="changelog-timeline">
+                    
+                    <div class="log-node">
+                        <div class="log-header">
+                            <h4 class="log-title">主伺服器更新：版本 26.1</h4>
+                            <span class="log-date">2026年4月</span>
+                        </div>
+                        <div class="log-body">
+                            <ul>
+                                <li>✨ 引入全新自訂生物外觀與表情動畫，讓世界更有生機。</li>
+                                <li>🌿 新增「金蒲公英」特殊合成配方與對應道具。</li>
+                                <li>🎵 升級環境與戰鬥音效，立體環繞質感更真實。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="log-node">
+                        <div class="log-header">
+                            <h4 class="log-title">伺服器效能與交通優化</h4>
+                            <span class="log-date">2026年3月</span>
+                        </div>
+                        <div class="log-body">
+                            <ul>
+                                <li>🛒 安裝 Audaki Cart Engine (Faster Minecarts) 技術。</li>
+                                <li>⚡ 大幅提升礦車在直線與彎道的巡航速度，減少交通等待。</li>
+                                <li>⚙️ 優化地底鐵路實體演算，大幅降低多人上線時的伺服器負擔 (TPS)。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sidebar-panel">
+            
+            <div class="sidebar-card">
+                <h3>相容性</h3>
+                <p style="margin: 0 0 10px 0; font-size: 0.95rem; font-weight:600;">Minecraft Java 版</p>
+                <div>
+                    <span class="tag-pill highlight-version">1.21.11 (主版本)</span>
+                    <span class="tag-pill">26.1</span>
+                    <span class="tag-pill">1.21.x</span>
+                    <span class="tag-pill">1.20.x</span>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h3>注意事項</h3>
+                <div class="notice-box">
+                    <strong>建議安裝翻譯資源包！</strong><br>
+                    請玩家於加入伺服器時，記得勾選並填寫「同意資源包下載」方可正常同樂。
+                </div>
+            </div>
+
+            <div class="sidebar-card" style="font-size: 0.95rem; color: var(--color-muted);">
+                <h3>詳細資訊</h3>
+                <p>📂 類型：Minecraft 伺服器</p>
+                <p>⚙️ 平台：Fabric 優化架構</p>
+                <p>📅 建立時間：2024 年 6 月</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            // 1. 隱藏所有的分頁區塊，並將作用中標籤移除
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // 2. 顯示玩家點選的特定分頁區塊
+            document.getElementById('tab-' + tabId).classList.add('active');
+
+            // 3. 讓當前點選的按鈕高亮（墨綠底、亮綠字）
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
