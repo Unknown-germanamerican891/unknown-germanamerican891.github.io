@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伺服器公告首頁</title>
+    <style>
+        /* 全域樣式與指定背景色 */
+        body {
+            font-family: "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+            background-color: #16181c;
+            color: #e3e6eb;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* 頂部區域與導覽列 */
+        header {
+            background-color: #1f232a;
+            padding: 20px 0;
+            border-bottom: 2px solid #2f3542;
+            text-align: center;
+        }
+        
+        header h1 {
+            margin: 0 0 15px 0;
+            font-size: 2.5rem;
+            color: #58a6ff;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background-color: #262c36;
+            padding: 10px;
+        }
+
+        nav a {
+            color: #c9d1d9;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: #58a6ff;
+            color: #16181c;
+        }
+
+        /* 主內容區塊版面 */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: #58a6ff;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #ff7b72;
+            margin-top: 15px;
+        }
+
+        p {
+            color: #c9d1d9;
+        }
+
+        /* 按鈕樣式 */
+        .btn {
+            display: inline-block;
+            background-color: #238636;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+
+        .btn:hover {
+            background-color: #2ea043;
+        }
+
+        .btn-secondary {
+            background-color: #30363d;
+            border: 1px solid #8b949e;
+            color: #c9d1d9;
+        }
+
+        .btn-secondary:hover {
+            background-color: #3c444d;
+        }
+
+        /* 摺疊選單 (Details) 樣式 */
+        details {
+            background-color: #16181c;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            margin-top: 10px;
+        }
+
+        summary {
+            font-weight: bold;
+            color: #58a6ff;
+            cursor: pointer;
+            outline: none;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 10px 0 0 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* 警示與技術指引區塊特殊化 */
+        .policy-alert {
+            border-left: 5px solid #f85149;
+            background-color: #2a1f21;
+        }
+
+        .tech-guide {
+            border-left: 5px solid #d29922;
+            background-color: #26221a;
+        }
+
+        .code-block {
+            background-color: #16181c;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #ff7b72;
+        }
+
+        /* 複製提示小字 */
+        .copy-hint {
+            font-size: 0.85rem;
+            color: #58a6ff;
+            margin-left: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>伺服器公告</h1>
+        <nav>
+            <a href="index.html" class="active">首頁</a>
+            <a href="menu.html">伺服器</a>
+            <a href="news.html">遊戲新聞</a>
+            <a href="#self-host">自架伺服器公告</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <section>
+            <h2>👋 歡迎來到伺服器中心</h2>
+            <p>本伺服器為<strong>自行架設</strong>，因考量到運行費用問題，目前選用 <strong>Aternos</strong> 作為免費託管平台。雖然整體效能不是市場上最好的，但非常歡迎大家一同進來遊玩與探險！</p>
+            <div style="margin-top: 20px;">
+                <a href="menu.html" class="btn">瀏覽伺服器清單 ➔</a>
+                <a href="#main-server" class="btn btn-secondary" style="margin-left: 10px;">前往主伺服器資訊</a>
+            </div>
+        </section>
+
+        <section id="main-server">
+            <h2>📢 最新公告</h2>
+            <h3>🌟 主伺服器更新：版本已升級至 26.1</h3>
+            <p>目前主伺服器已經全面升級，請各位玩家確保遊戲版本正確再行登入。</p>
+            
+            <details>
+                <summary>🔍 點擊展開 26.1 更新重點細節</summary>
+                <ul>
+                    <li><strong>全新生物外觀：</strong> 新增兔子與多種幼年生物的全新視覺外觀。</li>
+                    <li><strong>全新道具與配方：</strong> 引入「金蒲公英」，並正式新增「命名牌」的合成配方。</li>
+                    <li><strong>音效升級：</strong> 音階盒新增「小號」音色，並全面更新了貓、豬、牛、雞等動物的新音效。</li>
+                </ul>
+            </details>
+        </section>
+
+        <section>
+            <h2>🛠️ 模組伺服器公告</h2>
+            <p><strong>🌌 天堂模組伺服器：</strong> 目前已永久關閉，全新「天堂二模組」正在全力建構中，敬請期待。</p>
+            <p><strong>💥 槍械生存伺服器：</strong> 伺服器已重新啟動！歡迎玩家連線，新的伺服器 IP 請至選單專區查看。</p>
+        </section>
+
+        <section>
+            <h2>🔔 主伺服器內部優化</h2>
+            <p><strong>新增模組：</strong> <span class="code-block">Audaki Cart Engine (Faster Minecarts)</span></p>
+            <p><strong>功能說明：</strong> 全面優化與加速礦車系統。現在礦車在直線段的行駛速度大幅提升，且在彎道時的減速幅度更少，歡迎大家多多利用鐵路系統！</p>
+        </section>
+
+        <section>
+            <h2>📅 未來開發計畫</h2>
+            <p>❄️ <strong>寒假重新運作：</strong> 伺服器將在寒假期間恢復全面運作，屆時官方網站也會進行大改版，並正式預計加入<strong>「即時通訊系統」</strong>。</p>
+            <p>🏗️ <strong>伺服器重建專案：</strong> 預計推出「一格空島」、「墜落世界」、「主題式槍械」以及「天堂Ⅱ」等多款特色玩法。</p>
+            <p>💬 <strong>即時留言系統：</strong> 我們正在測試留言板功能，使用者可捲動至頁面最下方搶先試用（測試中）。</p>
+        </section>
+
+        <section class="policy-alert">
+            <h2>⚠️ 重要政策公告</h2>
+            <p>配合<strong>教育局相關政策與規範</strong>，現行的遊戲相關群組將於近日進行刪除。</p>
+            <p><strong>注意：</strong> 之後所有伺服器的動態、IP、更新資訊<strong>只會在此官方網站發布</strong>，不再透過群組另行通知，請玩家務必將本網站加入瀏覽器我的最愛。</p>
+        </section>
+
+        <section class="tech-guide" id="self-host">
+            <h2>🔑 伺服器自主開啟操作指引</h2>
+            <p>當伺服器處於關閉狀態時，玩家可以依照以下步驟自行啟動：</p>
+            <ol>
+                <li>前往 <a href="https://aternos.org/" target="_blank" style="color: #d29922; font-weight: bold;">Aternos 官方網站</a>。</li>
+                <li>輸入帳號：<span class="code-block">Start_Monitor</span></li>
+                <li>輸入密碼：<span class="code-block" id="server-pwd">ATW6235</span> 
+                    <button class="btn btn-secondary" style="padding: 2px 8px; font-size: 0.8rem; margin-left: 5px;" onclick="copyPassword()">複製密碼</button>
+                    <span class="copy-hint" id="copy-toast">已複製！</span>
+                </li>
+                <li>成功登入後，選擇你欲遊玩的伺服器，並點擊 <strong>「啟動 (Start)」</strong> 即可。</li>
+            </ol>
+        </section>
+
+    </div>
+
+    <script>
+        function copyPassword() {
+            var pwdText = document.getElementById("server-pwd").innerText;
+            navigator.clipboard.writeText(pwdText).then(function() {
+                var toast = document.getElementById("copy-toast");
+                toast.style.display = "inline";
+                setTimeout(function() {
+                    toast.style.display = "none";
+                }, 2000);
+            }).catch(function(err) {
+                alert('複製失敗，請手動複製。');
+            });
+        }
+    </script>
+
+</body>
+</html>
