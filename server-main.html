@@ -15,7 +15,6 @@
             --brand-green: #1bd96a;   /* 亮綠色大按鈕與選中字體 */
             --brand-green-hover: #22ff85;
             --border-color: #2c2e33;  /* 精緻網格線條顏色 */
-            --brand-orange: #ff9800;  /* 更新日誌時間軸經典橘色 */
         }
 
         body {
@@ -126,7 +125,7 @@
             margin: 0;
         }
 
-        /* 右側按鈕組合（僅留下複製 IP 位置） */
+        /* 右側複製 IP 位置按鈕 */
         .project-meta-right {
             display: flex;
             align-items: center;
@@ -147,7 +146,7 @@
             transition: background-color 0.2s ease, border-color 0.2s ease;
             border: 1px solid transparent;
             cursor: pointer;
-            min-width: 160px; /* 固定最小寬度，防止文字改變時長度縮小縮排 */
+            min-width: 160px; /* 固定最小寬度，防止複製時寬度發生抖動或縮小 */
             box-sizing: border-box;
         }
 
@@ -155,7 +154,6 @@
             background-color: var(--brand-green-hover);
         }
         
-        /* 點擊後文字改變的提示狀態樣式 */
         .btn-download.copied {
             background-color: #24262b;
             color: var(--brand-green);
@@ -190,7 +188,6 @@
             background-color: #1c1e22;
         }
 
-        /* 啟動中的分頁標籤樣式 */
         .tab-btn.active {
             background-color: #1b3524;
             color: var(--brand-green);
@@ -213,7 +210,6 @@
             }
         }
 
-        /* 左側動態分頁內容區 */
         .tab-content-panel {
             min-width: 0;
         }
@@ -252,7 +248,7 @@
             line-height: 1.7;
         }
 
-        /* 圖庫頁籤樣式 (網格佈局) */
+        /* 圖庫頁籤樣式 */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -288,12 +284,13 @@
             gap: 6px;
         }
 
-        /* 更新日誌頁籤樣式 (完美解決圓圈與線條對齊問題) */
+        /* ==================== 更新日誌穩定版綠色時間軸 (精準對齊機制) ==================== */
         .changelog-timeline {
             position: relative;
-            padding-left: 30px;
-            margin-left: 10px;
-            border-left: 3px solid var(--brand-orange); 
+            padding-left: 24px;
+            margin-left: 8px;
+            /* 穩定版本全面改為亮綠色垂直實線 */
+            border-left: 3px solid var(--brand-green); 
         }
 
         .log-node {
@@ -301,16 +298,17 @@
             margin-bottom: 40px;
         }
 
-        /* 將圓圈精準壓在左側邊框線中央，並透過百分比垂直置中於第一行標題 */
+        /* 使用與邊框絕對切齊的中心位移，達到不論字體多大皆完美重合的效果 */
         .log-node::before {
             content: '';
             position: absolute;
-            left: -37px; /* 精準對齊 3px 寬度的垂直橘線正中心 */
-            top: 13px;   /* 完美對齊主標題的第一行字體中心 */
+            /* 計算公式：-(外距 + 線寬/2 + 圓心半徑) 達到與左邊綠線完美同心 */
+            left: -31px; 
+            top: 13px;   
             transform: translateY(-50%);
             width: 11px;
             height: 11px;
-            background-color: var(--brand-orange);
+            background-color: var(--brand-green); /* 圓圈同步改為穩定版綠色 */
             border-radius: 50%;
             border: 3px solid var(--bg-main);
             z-index: 2;
@@ -380,7 +378,7 @@
             padding-bottom: 8px;
         }
 
-        /* 相容性膠囊小標籤 */
+        /* 相容性簡潔標籤 */
         .tag-pill {
             display: inline-block;
             background-color: #2c2e33;
@@ -534,7 +532,7 @@
                 <h3>相容性</h3>
                 <p style="margin: 0 0 10px 0; font-size: 0.95rem; font-weight:600;">Minecraft Java 版</p>
                 <div>
-                    <span class="tag-pill highlight-version">1.21.11 (當前可用版本)</span>
+                    <span class="tag-pill highlight-version">1.21.11</span>
                 </div>
             </div>
 
@@ -574,7 +572,7 @@
             event.currentTarget.classList.add('active');
         }
 
-        // 流暢複製 IP 且按鈕不縮小、不跳彈出視窗
+        // 流暢複製 IP 且按鈕不縮小
         function copyServerIP() {
             navigator.clipboard.writeText('solomon10129MCJ.aternos.me:16226');
             
