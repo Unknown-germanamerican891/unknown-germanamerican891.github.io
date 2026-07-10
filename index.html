@@ -25,8 +25,8 @@
             color: var(--color-text);
             margin: 0;
             padding: 0;
-            line-height: 1.6; /* 稍微加寬行高，閱讀更舒適 */
-            font-size: 1.1rem; /* 💡 全域基礎字體加大 */
+            line-height: 1.6;
+            font-size: 1.1rem; /* 保持加大字體 */
         }
 
         /* 頂部區域與導覽列 */
@@ -49,7 +49,7 @@
         
         header h1 {
             margin: 0;
-            font-size: 1.5rem; /* 💡 大標題加大 */
+            font-size: 1.5rem;
             font-weight: 700;
         }
 
@@ -74,7 +74,7 @@
             padding: 8px 16px;
             border-radius: 6px;
             transition: all 0.2s ease;
-            font-size: 1.05rem; /* 💡 導覽列字體加大 */
+            font-size: 1.05rem;
             font-weight: 500;
         }
 
@@ -95,7 +95,7 @@
             margin: 30px auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: 300px 1fr; /* 寬度稍微拓寬 */
+            grid-template-columns: 300px 1fr;
             gap: 24px;
         }
 
@@ -121,7 +121,7 @@
 
         /* 頁面主要大標題樣式 */
         .page-main-title {
-            font-size: 1.8rem; /* 💡 最新公告主要大標加大 */
+            font-size: 1.8rem;
             color: var(--color-text);
             margin: 0 0 5px 0;
             font-weight: 700;
@@ -133,12 +133,13 @@
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 28px; /* 💡 內襯稍微加寬更舒適 */
+            padding: 28px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            scroll-margin-top: 80px; /* 保持保留防導覽列遮擋設定 */
         }
 
         .card h2 {
-            font-size: 1.4rem; /* 💡 卡片標題加大 */
+            font-size: 1.4rem;
             margin-top: 0;
             margin-bottom: 18px;
             color: var(--color-text);
@@ -146,7 +147,7 @@
         }
 
         .card h3 {
-            font-size: 1.2rem; /* 💡 卡片副標題加大 */
+            font-size: 1.2rem;
             color: var(--brand-green);
             margin-top: 16px;
             margin-bottom: 10px;
@@ -154,7 +155,7 @@
 
         p {
             color: var(--color-muted);
-            font-size: 1.05rem; /* 💡 內文字體加大 */
+            font-size: 1.05rem;
             margin: 0 0 14px 0;
         }
 
@@ -176,7 +177,7 @@
         .toc-list a {
             color: var(--color-muted);
             text-decoration: none;
-            font-size: 1.05rem; /* 💡 目錄文字加大 */
+            font-size: 1.05rem;
             transition: color 0.2s;
             display: block;
         }
@@ -185,14 +186,14 @@
             color: var(--brand-green);
         }
 
-        /* 🟩 Modrinth 綠色漸變按鈕樣式 */
+        /* Modrinth 綠色漸變按鈕樣式 */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             background-color: var(--brand-green);
             color: #000;
-            padding: 12px 20px; /* 按鈕變大一點更方便點擊 */
+            padding: 12px 20px;
             text-decoration: none;
             border-radius: 8px;
             font-size: 1rem;
@@ -212,12 +213,12 @@
             transform: scale(0.95);
         }
 
-        /* 🪨 依條件客製化的灰色複製按鈕樣式 */
+        /* 客製化灰色複製按鈕樣式 */
         .btn-gray {
             background-color: #34363c;
             color: #aeb8c3;
             padding: 6px 12px;
-            font-size: 0.85rem; /* 💡 按鈕字體微調大 */
+            font-size: 0.85rem;
             margin-left: 8px;
             border-radius: 6px;
             font-weight: bold;
@@ -243,7 +244,7 @@
             color: var(--color-muted);
             padding: 4px 10px;
             border-radius: 4px;
-            font-size: 0.85rem; /* 💡 標籤字體加大 */
+            font-size: 0.85rem;
             margin-right: 8px;
             border: 1px solid var(--border-color);
         }
@@ -261,14 +262,14 @@
             font-weight: 600;
             color: var(--color-text);
             cursor: pointer;
-            font-size: 1.05rem; /* 💡 摺疊標題加大 */
+            font-size: 1.05rem;
         }
 
         ul, ol {
             padding-left: 22px;
             margin: 12px 0 0 0;
             color: var(--color-muted);
-            font-size: 1.05rem; /* 💡 列表字體加大 */
+            font-size: 1.05rem;
         }
 
         li {
@@ -291,7 +292,7 @@
             border-radius: 6px;
             font-family: Consolas, Monaco, monospace;
             color: #e5c07b;
-            font-size: 0.95rem; /* 💡 程式碼區塊加大 */
+            font-size: 0.95rem;
             border: 1px solid var(--border-color);
         }
 
@@ -309,7 +310,7 @@
 
     <header>
         <div class="header-container">
-            <h1><a href="#main-server" class="scroll-link">伺服器公告</a></h1>
+            <h1><a href="#main-server">伺服器公告</a></h1>
             <nav>
                 <a href="index.html" class="active">首頁</a>
                 <a href="menu.html">伺服器</a>
@@ -336,12 +337,12 @@
             <div class="card" style="padding: 18px;">
                 <h2>本頁目錄</h2>
                 <ul class="toc-list">
-                    <li><a href="#main-server" class="scroll-link">▪ 主伺服器更新公告</a></li>
-                    <li><a href="#mod-server" class="scroll-link">▪ 模組伺服器動態</a></li>
-                    <li><a href="#server-optimization" class="scroll-link">▪ 主伺服器內部優化</a></li>
-                    <li><a href="#future-plans" class="scroll-link">▪ 未來開發計畫</a></li>
-                    <li><a href="#policy-alert" class="scroll-link">▪ 重要政策公告</a></li>
-                    <li><a href="#self-host" class="scroll-link">▪ 伺服器自主開啟指引</a></li>
+                    <li><a href="#main-server">▪ 主伺服器更新公告</a></li>
+                    <li><a href="#mod-server">▪ 模組伺服器動態</a></li>
+                    <li><a href="#server-optimization">▪ 主伺服器內部優化</a></li>
+                    <li><a href="#future-plans">▪ 未來開發計畫</a></li>
+                    <li><a href="#policy-alert">▪ 重要政策公告</a></li>
+                    <li><a href="#self-host">▪ 伺服器自主開啟指引</a></li>
                 </ul>
             </div>
         </div>
@@ -413,7 +414,6 @@
     </div>
 
     <script>
-        // 1. 複製密碼功能
         document.getElementById("copyBtn").addEventListener("click", function() {
             var pwdText = document.getElementById("server-pwd").innerText;
 
@@ -438,29 +438,6 @@
             }
 
             document.body.removeChild(textarea);
-        });
-
-        // 2. 💡 高度相容的 JavaScript 平滑捲動程式碼
-        document.querySelectorAll('.scroll-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault(); // 阻止原先直接跳轉的預設行為
-                
-                const targetId = this.getAttribute('href').split('#')[1];
-                const targetElement = document.getElementById(targetId);
-                
-                if (targetElement) {
-                    // 計算目標位置並扣除上方固定導覽列的高度（約 80px）
-                    const headerOffset = 80;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    
-                    // 執行平滑捲動
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
         });
     </script>
 
