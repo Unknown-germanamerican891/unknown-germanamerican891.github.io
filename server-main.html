@@ -109,7 +109,7 @@
             width: 72px;
             height: 72px;
             border-radius: 12px;
-            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=150'); /* 預設精美幾何圖替代，可改為 images/icon.png */
+            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=150'); 
             background-size: cover;
             border: 1px solid var(--border-color);
         }
@@ -126,7 +126,7 @@
             margin: 0;
         }
 
-        /* 右側下載、愛心、書籤膠囊鈕組合 */
+        /* 右側按鈕組合（僅留下複製 IP 位置） */
         .project-meta-right {
             display: flex;
             align-items: center;
@@ -142,7 +142,6 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
             font-size: 1.05rem;
             transition: all 0.2s ease;
             border: none;
@@ -153,24 +152,12 @@
             background-color: var(--brand-green-hover);
             transform: translateY(-1px);
         }
-
-        .btn-icon-only {
-            background-color: #2c2e33;
-            color: var(--color-text);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-size: 1.2rem;
-        }
-
-        .btn-icon-only:hover {
-            background-color: #41444b;
+        
+        /* 點擊後文字改變的提示狀態樣式 */
+        .btn-download.copied {
+            background-color: #24262b;
+            color: var(--brand-green);
+            border: 1px solid var(--brand-green);
         }
 
         /* ==================== 2. Modrinth 經典分頁選單 ==================== */
@@ -230,17 +217,17 @@
         }
 
         .page-section {
-            display: none; /* 預設全部隱藏，靠 JS 控制切換 */
+            display: none; 
         }
 
         .page-section.active {
-            display: block; /* 只有當前作用中的分頁會顯示 */
+            display: block; 
         }
 
-        /* 🎥 描述頁籤樣式 */
+        /* 描述頁籤樣式 */
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 比例 */
+            padding-bottom: 56.25%; 
             height: 0;
             border-radius: 12px;
             overflow: hidden;
@@ -263,7 +250,7 @@
             line-height: 1.7;
         }
 
-        /* 🖼️ 圖庫頁籤樣式 (網格佈局) */
+        /* 圖庫頁籤樣式 (網格佈局) */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -299,12 +286,12 @@
             gap: 6px;
         }
 
-        /* 📜 更新日誌頁籤樣式 (垂直時間軸) */
+        /* 📜 更新日誌頁籤樣式 (修正圓圈歪斜問題) */
         .changelog-timeline {
             position: relative;
             padding-left: 24px;
             margin-left: 10px;
-            border-left: 3px solid var(--brand-orange); /* 橘色垂直時間軸線 */
+            border-left: 3px solid var(--brand-orange); 
         }
 
         .log-node {
@@ -312,17 +299,18 @@
             margin-bottom: 40px;
         }
 
-        /* 時間軸上的圓點點 */
+        /* 精準修正時間軸圓圈對齊，不再依賴文字行高 */
         .log-node::before {
             content: '';
             position: absolute;
             left: -31px;
-            top: 6px;
+            top: 10px; /* 完美垂直居中對齊標題首行 */
             width: 11px;
             height: 11px;
             background-color: var(--brand-orange);
             border-radius: 50%;
             border: 3px solid var(--bg-main);
+            z-index: 2;
         }
 
         .log-header {
@@ -339,6 +327,7 @@
             font-weight: 700;
             margin: 0;
             color: #fff;
+            line-height: 1.2;
         }
 
         .log-date {
@@ -439,11 +428,9 @@
                 </div>
             </div>
             <div class="project-meta-right">
-                <button class="btn-download" onclick="navigator.clipboard.writeText('solomon10129MCJ.aternos.me:16226'); alert('IP已成功複製到剪貼簿！');">
-                    📥 複製伺服器 IP
+                <button id="ip-btn" class="btn-download" onclick="copyServerIP()">
+                    複製伺服器 IP
                 </button>
-                <button class="btn-icon-only" title="加入最愛">❤️</button>
-                <button class="btn-icon-only" title="收藏專案">🔖</button>
             </div>
         </div>
 
@@ -473,27 +460,27 @@
                 <div class="gallery-grid">
                     <div class="gallery-card">
                         <img src="https://images.unsplash.com/photo-1607988795691-3d0147b43231?q=80&w=500" class="gallery-img" alt="遊戲截圖 1">
-                        <div class="gallery-meta">📅 2026年6月15日 ｜ 大樓遠景</div>
+                        <div class="gallery-meta">2026年6月15日 ｜ 大樓遠景</div>
                     </div>
                     <div class="gallery-card">
                         <img src="https://images.unsplash.com/photo-1605899435973-ca2d1a8861cf?q=80&w=500" class="gallery-img" alt="遊戲截圖 2">
-                        <div class="gallery-meta">📅 2026年6月15日 ｜ 櫻花林道</div>
+                        <div class="gallery-meta">2026年6月15日 ｜ 櫻花林道</div>
                     </div>
                     <div class="gallery-card">
                         <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=500" class="gallery-img" alt="遊戲截圖 3">
-                        <div class="gallery-meta">📅 2026年6月15日 ｜ 空島基地</div>
+                        <div class="gallery-meta">2026年6月15日 ｜ 空島基地</div>
                     </div>
                     <div class="gallery-card">
                         <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500" class="gallery-img" alt="遊戲截圖 4">
-                        <div class="gallery-meta">📅 2026年6月15日 ｜ 生日快樂</div>
+                        <div class="gallery-meta">2026年6月15日 ｜ 生日快樂</div>
                     </div>
                     <div class="gallery-card">
                         <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?q=80&w=500" class="gallery-img" alt="遊戲截圖 5">
-                        <div class="gallery-meta">📅 2026年6月15日 ｜ 深邃地底</div>
+                        <div class="gallery-meta">2026年6月15日 ｜ 深邃地底</div>
                     </div>
                     <div class="gallery-card">
                         <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?q=80&w=500" class="gallery-img" alt="遊戲截圖 6">
-                        <div class="gallery-meta">📅 2026年6月15日 ｜ 空中軌道</div>
+                        <div class="gallery-meta">2026年6月15日 ｜ 空中軌道</div>
                     </div>
                 </div>
             </div>
@@ -508,9 +495,9 @@
                         </div>
                         <div class="log-body">
                             <ul>
-                                <li>✨ 引入全新自訂生物外觀與表情動畫，讓世界更有生機。</li>
-                                <li>🌿 新增「金蒲公英」特殊合成配方與對應道具。</li>
-                                <li>🎵 升級環境與戰鬥音效，立體環繞質感更真實。</li>
+                                <li>引入全新自訂生物外觀與表情動畫，讓世界更有生機。</li>
+                                <li>新增「金蒲公英」特殊合成配方與對應道具。</li>
+                                <li>升級環境與戰鬥音效，立體環繞質感更真實。</li>
                             </ul>
                         </div>
                     </div>
@@ -522,9 +509,9 @@
                         </div>
                         <div class="log-body">
                             <ul>
-                                <li>🛒 安裝 Audaki Cart Engine (Faster Minecarts) 技術。</li>
-                                <li>⚡ 大幅提升礦車在直線與彎道的巡航速度，減少交通等待。</li>
-                                <li>⚙️ 優化地底鐵路實體演算，大幅降低多人上線時的伺服器負擔 (TPS)。</li>
+                                <li>安裝 Audaki Cart Engine (Faster Minecarts) 技術。</li>
+                                <li>大幅提升礦車在直線與彎道的巡航速度，減少交通等待。</li>
+                                <li>優化地底鐵路實體演算，大幅降低多人上線時的伺服器負擔 (TPS)。</li>
                             </ul>
                         </div>
                     </div>
@@ -540,10 +527,7 @@
                 <h3>相容性</h3>
                 <p style="margin: 0 0 10px 0; font-size: 0.95rem; font-weight:600;">Minecraft Java 版</p>
                 <div>
-                    <span class="tag-pill highlight-version">1.21.11 (主版本)</span>
-                    <span class="tag-pill">26.1</span>
-                    <span class="tag-pill">1.21.x</span>
-                    <span class="tag-pill">1.20.x</span>
+                    <span class="tag-pill highlight-version">1.21.11 (當前可用版本)</span>
                 </div>
             </div>
 
@@ -567,19 +551,31 @@
     </div>
 
     <script>
+        // 頁籤無縫切換機制
         function switchTab(tabId) {
-            // 1. 隱藏所有的分頁區塊，並將作用中標籤移除
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(section => section.classList.remove('active'));
 
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
 
-            // 2. 顯示玩家點選的特定分頁區塊
             document.getElementById('tab-' + tabId).classList.add('active');
-
-            // 3. 讓當前點選的按鈕高亮（墨綠底、亮綠字）
             event.currentTarget.classList.add('active');
+        }
+
+        // 流暢複製 IP 且不跳彈出視窗
+        function copyServerIP() {
+            navigator.clipboard.writeText('solomon10129MCJ.aternos.me:16226');
+            
+            const ipBtn = document.getElementById('ip-btn');
+            ipBtn.innerText = '已複製 IP！';
+            ipBtn.classList.add('copied');
+
+            // 1.5 秒後按鈕自動回復原狀，使用者體驗極佳
+            setTimeout(() => {
+                ipBtn.innerText = '複製伺服器 IP';
+                ipBtn.classList.remove('copied');
+            }, 1500);
         }
     </script>
 
