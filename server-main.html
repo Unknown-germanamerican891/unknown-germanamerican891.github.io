@@ -273,6 +273,7 @@
             object-fit: cover;
             display: block;
             background-color: #111216;
+            cursor: zoom-in; /* 提示玩家圖片可以放大 */
         }
 
         .gallery-meta {
@@ -284,14 +285,13 @@
             gap: 6px;
         }
 
-        /* ==================== 【終極修復】X軸絕對鎖死時間軸 ==================== */
+        /* ==================== X軸絕對鎖死時間軸 ==================== */
         .changelog-timeline {
             position: relative;
-            padding-left: 40px;  /* 留出足夠的左側空間給線條 */
+            padding-left: 40px;  
             margin-top: 10px;
         }
 
-        /* 垂直長線：固定在容器左側第 20px 的地方 */
         .changelog-timeline::before {
             content: '';
             position: absolute;
@@ -301,7 +301,7 @@
             width: 3px;
             background-color: var(--brand-green);
             border-radius: 2px;
-            transform: translateX(-50%); /* 確保線條本身左右置中於 20px 座標點 */
+            transform: translateX(-50%); 
         }
 
         .log-node {
@@ -309,18 +309,17 @@
             margin-bottom: 40px;
         }
 
-        /* 小圓點：同樣利用負向位移，直接強行瞄準外層容器的第 20px 物理座標 */
         .log-node::before {
             content: '';
             position: absolute;
-            left: -20px;                 /* 完美的對稱負值！強制將圓心拉回與長線一模一樣的 X 軸 */
-            top: 12px;                  /* 對齊標題文字的垂直中央 */
-            transform: translate(-50%, -50%); /* 圓心完美重疊，不論如何縮放絕不偏心 */
+            left: -20px;                 
+            top: 12px;                  
+            transform: translate(-50%, -50%); 
             width: 11px;
             height: 11px;
             background-color: var(--brand-green);
             border-radius: 50%;
-            border: 4px solid var(--bg-main); /* 增加邊框厚度，復刻 Modrinth 經典空隙感 */
+            border: 4px solid var(--bg-main); 
             z-index: 2;
         }
 
@@ -418,6 +417,58 @@
         .info-list p {
             margin: 8px 0;
         }
+
+        /* ==================== 【全新引進】圖片放大燈箱效果 ==================== */
+        .lightbox {
+            display: none;             /* 預設隱藏 */
+            position: fixed;           /* 鎖定在螢幕最外層 */
+            z-index: 2000;             /* 層級必須高於所有物件 */
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(11, 12, 14, 0.9); /* Modrinth 風格深色半透明遮罩 */
+            backdrop-filter: blur(4px); /* 背景微弱模糊，質感大幅升級 */
+            cursor: zoom-out;          /* 點擊放大圖外面可以縮小 */
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 85%;            
+            max-height: 80vh;          
+            border-radius: 12px;       
+            border: 1px solid var(--border-color);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+            
+            /* 流暢的彈出放大動畫 */
+            animation-name: zoomIn;
+            animation-duration: 0.25s;
+            transition: transform 0.2s ease;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: var(--color-muted);
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.2s;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover {
+            color: #fff;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -474,27 +525,27 @@
             <div id="tab-gallery" class="page-section">
                 <div class="gallery-grid">
                     <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1607988795691-3d0147b43231?q=80&w=500" class="gallery-img" alt="遊戲截圖 1">
+                        <img src="https://images.unsplash.com/photo-1607988795691-3d0147b43231?q=80&w=500" class="gallery-img" alt="遊戲截圖 1" onclick="openLightbox(this)">
                         <div class="gallery-meta">2026年6月15日 ｜ 大樓遠景</div>
                     </div>
                     <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1605899435973-ca2d1a8861cf?q=80&w=500" class="gallery-img" alt="遊戲截圖 2">
+                        <img src="https://images.unsplash.com/photo-1605899435973-ca2d1a8861cf?q=80&w=500" class="gallery-img" alt="遊戲截圖 2" onclick="openLightbox(this)">
                         <div class="gallery-meta">2026年6月15日 ｜ 櫻花林道</div>
                     </div>
                     <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=500" class="gallery-img" alt="遊戲截圖 3">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=500" class="gallery-img" alt="遊戲截圖 3" onclick="openLightbox(this)">
                         <div class="gallery-meta">2026年6月15日 ｜ 空島基地</div>
                     </div>
                     <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500" class="gallery-img" alt="遊戲截圖 4">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=500" class="gallery-img" alt="遊戲截圖 4" onclick="openLightbox(this)">
                         <div class="gallery-meta">2026年6月15日 ｜ 生日快樂</div>
                     </div>
                     <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?q=80&w=500" class="gallery-img" alt="遊戲截圖 5">
+                        <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?q=80&w=500" class="gallery-img" alt="遊戲截圖 5" onclick="openLightbox(this)">
                         <div class="gallery-meta">2026年6月15日 ｜ 深邃地底</div>
                     </div>
                     <div class="gallery-card">
-                        <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?q=80&w=500" class="gallery-img" alt="遊戲截圖 6">
+                        <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?q=80&w=500" class="gallery-img" alt="遊戲截圖 6" onclick="openLightbox(this)">
                         <div class="gallery-meta">2026年6月15日 ｜ 空中軌道</div>
                     </div>
                 </div>
@@ -569,6 +620,11 @@
 
     </div>
 
+    <div id="image-lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" alt="放大圖片">
+    </div>
+
     <script>
         // 頁籤無縫切換機制
         function switchTab(tabId) {
@@ -594,6 +650,27 @@
                 ipBtn.innerText = '複製伺服器 IP';
                 ipBtn.classList.remove('copied');
             }, 1500);
+        }
+
+        // 開啟燈箱放大圖片
+        function openLightbox(imgElement) {
+            const lightbox = document.getElementById('image-lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            lightbox.style.display = "block";
+            lightboxImg.src = imgElement.src; 
+            
+            // 鎖定背景滾動
+            document.body.style.overflow = "hidden"; 
+        }
+
+        // 關閉燈箱
+        function closeLightbox() {
+            const lightbox = document.getElementById('image-lightbox');
+            lightbox.style.display = "none";
+            
+            // 恢復背景滾動
+            document.body.style.overflow = "auto";
         }
     </script>
 
